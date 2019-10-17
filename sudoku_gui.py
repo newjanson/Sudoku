@@ -63,10 +63,21 @@ class Sudoku_GUI:
 		self.curr_selected_row = 0
 		self.curr_selected_col = 0
 
+	def _render_sudoku_board(self, render_screen):
+
+		# Reset Screen
+		render_screen.fill(self.BACKGROUND_COLOR)
+
+		# Draw Grid Lines and Selected Box
+		self._render_grid(render_screen)
+
+		# Draw Numbers
+		self._render_numbers(render_screen)
+
+		# Draw Buttons
+		self._render_buttons(render_screen)
 
 	def _render_grid(self, render_screen):
-
-		render_screen.fill(self.BACKGROUND_COLOR)
 
 		# Draw Minor Lines
 		for i in range(3):
@@ -96,12 +107,6 @@ class Sudoku_GUI:
 		pg.draw.rect(render_screen, self.SELECTED_BOX_COLOR,
 		(self.minor_box_x_interval * self.curr_selected_col, self.minor_box_y_interval * self.curr_selected_row, \
 		self.minor_box_x_interval, self.minor_box_y_interval), self.MAJOR_LINE_WIDTH)
-
-		# Draw numbers
-		self._render_numbers(render_screen)
-
-		# Draw Buttons
-		self._render_buttons(render_screen)
 
 	def _render_numbers(self, render_screen):
 	
@@ -249,7 +254,7 @@ class Sudoku_GUI:
 
 		game_over = False
 
-		self._render_grid(game_screen)		
+		self._render_sudoku_board(game_screen)		
 
 		while not game_over:
 
@@ -273,7 +278,7 @@ class Sudoku_GUI:
 				board_changed = True
 			
 			if board_changed:
-				self._render_grid(game_screen)
+				self._render_sudoku_board(game_screen)
 	
 			# Check player mouse to see if its over a button
 			self._check_player_mouse()
