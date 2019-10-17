@@ -12,14 +12,15 @@ class Sudoku_GUI:
 
 		# Used to control the speed of game loop
 		# Acts as a buffer for user input
-		self.BUFFER_DELAY = 0.1 # 100 ms
+		self.BUFFER_DELAY = (1/20) # 20 FPS
 
 		# Color Palette
-		self.MAJOR_LINE_COLOR = (250, 250, 250)
-		self.MINOR_LINE_COLOR = (150, 150, 150)
-		self.TEXT_COLOR = (250, 250, 250)
-		self.SELECTED_BOX_COLOR = (80, 80, 255)
 		self.BACKGROUND_COLOR = (0, 0, 0)
+		self.MAJOR_LINE_COLOR = (200, 200, 200)
+		self.MINOR_LINE_COLOR = (150, 150, 150)
+		self.SELECTED_BOX_COLOR = (70, 70, 255)
+		self.BUTTON_COLOR = (30, 30, 80)
+		self.TEXT_COLOR = (250, 250, 250)
 
 		# Line Widths
 		self.MAJOR_LINE_WIDTH = 6
@@ -27,9 +28,15 @@ class Sudoku_GUI:
 
 		# Fonts
 		self.NUMBER_FONT = pg.font.SysFont('Consolas', 50)
+		self.BUTTON_FONT = pg.font.SysFont('Consolas', 30)
 
 		# The dimensions of the window (window is dimensions x dimensions)
 		self.dimensions = dimensions
+
+		# The dimensions of the buttons
+		self.button_width = self.dimensions / 3
+		self.button_height = 70
+		self.button_padding = 10
 
 		# The interval of major box in each direction
 		self.major_box_x_interval = self.dimensions / 3
@@ -93,6 +100,9 @@ class Sudoku_GUI:
 		# Draw numbers
 		self._render_numbers(render_screen)
 
+		# Draw Buttons
+		self._render_buttons(render_screen)
+
 	def _render_numbers(self, render_screen):
 	
 		for row in range(len(self.board)):
@@ -112,8 +122,42 @@ class Sudoku_GUI:
 
 					render_screen.blit(text_surface, text_rect)
 
+	def _render_buttons(self, render_screen):
+		
+		# Pause Button
+		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		(self.button_padding, self.dimensions + self.button_padding, \
+		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
+		
+		px = self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
 
-	def _update_current_selected_box(self, input_direction):
+		text_surface = self.BUTTON_FONT.render("PAUSE", True, self.TEXT_COLOR)
+		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+
+		# Clear Button
+		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		(self.button_width + self.button_padding, self.dimensions + self.button_padding, \
+		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
+
+		px = self.button_width + self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
+
+		text_surface = self.BUTTON_FONT.render("CLEAR", True, self.TEXT_COLOR)
+		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+
+		# Main Menu Button
+		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		(2*self.button_width + self.button_padding, self.dimensions + self.button_padding, \
+		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
+
+		px = 2*self.button_width + self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
+
+		text_surface = self.BUTTON_FONT.render("MAIN MENU", True, self.TEXT_COLOR)
+		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+
+	def _update_current_selected_box_pos(self, input_direction):
 		
 		dr = input_direction[0]
 		dc = input_direction[1]
@@ -162,14 +206,46 @@ class Sudoku_GUI:
 
 		return move_direction, placed_num
 
-		raise NotImplementedError
+	def _check_player_mouse(self):
+		
+		mouse_button_state = pg.mouse.get_pressed()
+		
+		# Left Click
+		if mouse_button_state[0]:
+			
+			# Mouse xy position
+			mx, my = pg.mouse.get_pos()
+
+			if self.button_padding <= mx <= self.button_padding + (self.button_width - 2*self.button_padding):
+				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
+					# Pause Button pressed
+					self._on_pause_click()
+			elif self.button_width + self.button_padding <= mx <= self.button_width + self.button_padding + (self.button_width - 2*self.button_padding):
+				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
+					# Clear Button pressed
+					self._on_clear_click()
+			elif 2*self.button_width + self.button_padding <= mx <= 2*self.button_width + self.button_padding + (self.button_width - 2*self.button_padding):
+				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
+					# Pause Button pressed
+					self._on_main_menu_click()
+
+	def _on_pause_click(self):
+		# TODO Implement this method
+		print("PAUSE BUTTON PRESSED")
+
+	def _on_clear_click(self):
+		# TODO Implement this method
+		print("CLEAR BUTTON PRESSED")
+
+	def _on_main_menu_click(self):
+		# TODO Implement this method
+		print("MAIN MENU BUTTON PRESSED")
 
 	def run_game(self):
 
 		# Initialize PyGame      
-		game_screen = pg.display.set_mode((self.dimensions, self.dimensions))    
+		game_screen = pg.display.set_mode((self.dimensions, self.dimensions + self.button_height))    
 		pg.display.set_caption('PyDoku Inc.')
-
 
 		game_over = False
 
@@ -193,12 +269,14 @@ class Sudoku_GUI:
 				board_changed = True
 
 			if any(input_direction):
-				self._update_current_selected_box(input_direction)
+				self._update_current_selected_box_pos(input_direction)
 				board_changed = True
 			
 			if board_changed:
 				self._render_grid(game_screen)
 	
+			# Check player mouse to see if its over a button
+			self._check_player_mouse()
 
 			pg.display.update()
 			t.sleep(self.BUFFER_DELAY)
