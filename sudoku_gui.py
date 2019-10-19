@@ -37,7 +37,11 @@ class Sudoku_GUI:
 		self.button_width = self.dimensions / 3
 		self.button_height = 70
 		self.button_padding = 10
-
+		self.button_y_pos = self.dimensions + self.button_padding
+		self.pause_x_pos = self.button_padding
+		self.clear_x_pos = self.button_width + self.button_padding
+		self.main_menu_x_pos = 2*self.button_width + self.button_padding
+		
 		# The interval of major box in each direction
 		self.major_box_x_interval = self.dimensions / 3
 		self.major_box_y_interval = self.dimensions / 3
@@ -131,45 +135,62 @@ class Sudoku_GUI:
 		
 		# Pause Button
 		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
-		(self.button_padding, self.dimensions + self.button_padding, \
+		(self.pause_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 		
-		px = self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
-		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
+		px = self.pause_x_pos + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("PAUSE", True, self.TEXT_COLOR)
 		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Clear Button
 		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
-		(self.button_width + self.button_padding, self.dimensions + self.button_padding, \
+		(self.clear_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 
-		px = self.button_width + self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
-		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
+		px = self.clear_x_pos + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("CLEAR", True, self.TEXT_COLOR)
 		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Main Menu Button
 		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
-		(2*self.button_width + self.button_padding, self.dimensions + self.button_padding, \
+		(self.main_menu_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 
-		px = 2*self.button_width + self.button_padding + ((self.button_width - 2*self.button_padding) // 2)
-		py = self.dimensions + self.button_padding + ((self.button_height - 2*self.button_padding) // 2)
+		px = self.main_menu_x_pos + ((self.button_width - 2*self.button_padding) // 2)
+		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("MAIN MENU", True, self.TEXT_COLOR)
 		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
-	def _update_current_selected_box_pos(self, input_direction):
+	def _update_current_selected_box_pos(self, user_input, is_mouse):
 		
-		dr = input_direction[0]
-		dc = input_direction[1]
+		# user_input can be a keyboard direction
+		# or it can be a mouse position
 
-		# Update current selected box only if direction is valid
-		self.curr_selected_row += dr * int(0 <= self.curr_selected_row + dr <= 8)
-		self.curr_selected_col += dc * int(0 <= self.curr_selected_col + dc <= 8)
+		if not is_mouse:
+			dr = user_input[0]
+			dc = user_input[1]
+
+			# Update current selected box only if direction is valid
+			self.curr_selected_row += dr * int(0 <= self.curr_selected_row + dr <= 8)
+			self.curr_selected_col += dc * int(0 <= self.curr_selected_col + dc <= 8)
+		
+		else:
+			mx = user_input[0]
+			my = user_input[1]
+
+			# Convert mouse position to array position
+			row = int(my // self.minor_box_y_interval)
+			col = int(mx // self.minor_box_x_interval)
+
+			if 0 <= row <= 8 and 0 <= col <= 8:
+				self.curr_selected_row = row
+				self.curr_selected_col = col
+
 
 	def _get_player_input(self):
 
@@ -209,7 +230,10 @@ class Sudoku_GUI:
 		elif keys[pg.K_9]:
 			placed_num = 9
 
-		return move_direction, placed_num
+		# Check Mouse Input
+		mouse_pos = self._check_player_mouse()
+
+		return move_direction, placed_num, mouse_pos
 
 	def _check_player_mouse(self):
 		
@@ -221,18 +245,20 @@ class Sudoku_GUI:
 			# Mouse xy position
 			mx, my = pg.mouse.get_pos()
 
-			if self.button_padding <= mx <= self.button_padding + (self.button_width - 2*self.button_padding):
-				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
+			if self.pause_x_pos <= mx <= self.pause_x_pos + (self.button_width - 2*self.button_padding):
+				if self.button_y_pos <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
 					# Pause Button pressed
 					self._on_pause_click()
-			elif self.button_width + self.button_padding <= mx <= self.button_width + self.button_padding + (self.button_width - 2*self.button_padding):
-				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
+			elif self.clear_x_pos <= mx <= self.clear_x_pos + (self.button_width - 2*self.button_padding):
+				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
 					# Clear Button pressed
 					self._on_clear_click()
-			elif 2*self.button_width + self.button_padding <= mx <= 2*self.button_width + self.button_padding + (self.button_width - 2*self.button_padding):
-				if self.dimensions + self.button_padding <= my <= self.dimensions + self.button_padding + (self.button_height - 2*self.button_padding):
-					# Pause Button pressed
+			elif self.main_menu_x_pos <= mx <= self.main_menu_x_pos + (self.button_width - 2*self.button_padding):
+				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
+					# Main Menu Button pressed
 					self._on_main_menu_click()
+
+			return (mx, my)
 
 	def _on_pause_click(self):
 		# TODO Implement this method
@@ -265,7 +291,7 @@ class Sudoku_GUI:
 				return
 	
 			# Input for moving the selected box
-			input_direction, placed_num = self._get_player_input()
+			user_input, placed_num, mouse_pos = self._get_player_input()
 			
 			board_changed = False
 
@@ -273,16 +299,17 @@ class Sudoku_GUI:
 				self.board[self.curr_selected_row][self.curr_selected_col] = placed_num
 				board_changed = True
 
-			if any(input_direction):
-				self._update_current_selected_box_pos(input_direction)
+			if any(user_input):
+				self._update_current_selected_box_pos(user_input, False)
+				board_changed = True
+
+			if mouse_pos is not None:
+				self._update_current_selected_box_pos(mouse_pos, True)
 				board_changed = True
 			
 			if board_changed:
 				self._render_sudoku_board(game_screen)
 	
-			# Check player mouse to see if its over a button
-			self._check_player_mouse()
-
 			pg.display.update()
 			t.sleep(self.BUFFER_DELAY)
 
