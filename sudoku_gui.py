@@ -4,7 +4,7 @@ import time as t
 
 import random as r # Just used to remove numbers from board
 
-class Sudoku_GUI:
+class SudokuGUI:
 	"""
 	The Main GUI Application for Sudoku. 
 
@@ -377,5 +377,5 @@ class Sudoku_GUI:
 
 if __name__ == "__main__":
 	
-	game = Sudoku_GUI(600)
+	game = SudokuGUI(600)
 	game.run_game()
