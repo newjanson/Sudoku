@@ -377,5 +377,5 @@ class SudokuGUI:
 
 if __name__ == "__main__":
 	
-	game = SudokuGUI(600)
+	game = SudokuGUI(700)
 	game.run_game()
