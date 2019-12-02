@@ -1,14 +1,36 @@
-from typing import List
 
-DIMENSION = 9
+class SudokuBoard:
+    def __init__(self, filename):
+        self.filename = filename
+        self.board = [[]]
+        self.DIMENSION = 9
 
-def load_puzzle(filename: str) -> List[int]:
-    f = open(filename, "r")
-    lines = [line.split() for line in f.readlines()]
-    lines = [list(map(int,i)) for i in lines]
-    lines.pop()
-    f.close()
-    return lines
+        f = open(self.filename, "r")
+        # Collect each line and split the values into elements of an array
+        self.board = [line.split() for line in f.readlines()]
 
-def check_win_condition(board):
-    return not any(0 in row for row in board)
+        # Convert the elements in the board from strings to integers
+        for i in range(self.DIMENSION):
+            for j in range(self.DIMENSION):
+                self.board[i][j] = int(self.board[i][j])
+
+        self.board = self.board[:9]
+        f.close()
+
+    def check_win_condition(self):
+        return all((0 not in row) and (sum(row) == 45) for row in self.board)
+
+    def get_board_copy(self):
+        return self.board[:]
+
+    def get_element(self, i, j):
+        return self.board[i][j]
+
+    def set_element(self, i, j, elem):
+        self.board[i][j] = elem
+
+
+
+
+
+
