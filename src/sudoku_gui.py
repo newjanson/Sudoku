@@ -61,7 +61,7 @@ class SudokuGUI:
 		self.minor_box_y_interval = self.dimensions / 9
 
 		# Create the sudoku board model
-		self.board = SudokuBoard("datasets/s01a.txt")
+		self.board = SudokuBoard("dataset/s01a.txt")
 
 		# Represents the current selected box
 		self.curr_selected_row = 0
@@ -71,7 +71,7 @@ class SudokuGUI:
 		self.move_history = []
 
 
-	def _render_sudoku_board(self, render_screen) -> None:
+	def _render_sudoku_board(self) -> None:
 		"""
 		Render the sudoku board on the screen by
 		drawing the grid lines, the numbers and the
@@ -79,18 +79,18 @@ class SudokuGUI:
 		"""
 
 		# Reset Screen
-		render_screen.fill(self.BACKGROUND_COLOR)
+		self.game_screen.fill(self.BACKGROUND_COLOR)
 
 		# Draw Grid Lines and Selected Box
-		self._render_grid(render_screen)
+		self._render_grid()
 
 		# Draw Numbers
-		self._render_numbers(render_screen)
+		self._render_numbers()
 
 		# Draw Buttons
-		self._render_buttons(render_screen)
+		self._render_buttons()
 
-	def _render_grid(self, render_screen) -> None:
+	def _render_grid(self) -> None:
 		"""
 		Draw thin lines to represnet smaller box.
 		Draw thick lines to represent the nonets.
@@ -101,32 +101,32 @@ class SudokuGUI:
 		for i in range(3):
 			for j in range(1, 3):
 				# Vertical Lines
-				pg.draw.line(render_screen, self.MINOR_LINE_COLOR, ((self.major_box_x_interval*i) + (self.minor_box_x_interval*j), 0), \
+				pg.draw.line(self.game_screen, self.MINOR_LINE_COLOR, ((self.major_box_x_interval*i) + (self.minor_box_x_interval*j), 0), \
 				((self.major_box_x_interval*i) + (self.minor_box_x_interval*j), self.dimensions), self.MINOR_LINE_WIDTH)
 
 				# Horizontal Lines
-				pg.draw.line(render_screen, self.MINOR_LINE_COLOR, (0, (self.major_box_y_interval*i) + (self.minor_box_y_interval*j)), \
+				pg.draw.line(self.game_screen, self.MINOR_LINE_COLOR, (0, (self.major_box_y_interval*i) + (self.minor_box_y_interval*j)), \
 				(self.dimensions, (self.major_box_y_interval*i) + (self.minor_box_y_interval*j)), self.MINOR_LINE_WIDTH)
 
 		# Draw Major Lines
 		for i in range(1, 3):
 			# Vertical Lines
-			pg.draw.line(render_screen, self.MAJOR_LINE_COLOR, (self.major_box_x_interval*i, 0), \
+			pg.draw.line(self.game_screen, self.MAJOR_LINE_COLOR, (self.major_box_x_interval*i, 0), \
 			(self.major_box_x_interval*i, self.dimensions), self.MAJOR_LINE_WIDTH)
 
 			# Horizontal Lines
-			pg.draw.line(render_screen, self.MAJOR_LINE_COLOR, (0, self.major_box_y_interval*i), \
+			pg.draw.line(self.game_screen, self.MAJOR_LINE_COLOR, (0, self.major_box_y_interval*i), \
 			(self.dimensions, self.major_box_y_interval*i), self.MAJOR_LINE_WIDTH)
 
 		# Draw Outline Border of screen
-		pg.draw.rect(render_screen, self.MAJOR_LINE_COLOR, (0, 0, self.dimensions, self.dimensions), 5)
+		pg.draw.rect(self.game_screen, self.MAJOR_LINE_COLOR, (0, 0, self.dimensions, self.dimensions), 5)
 
 		# Draw Selected Box
-		pg.draw.rect(render_screen, self.SELECTED_BOX_COLOR,
+		pg.draw.rect(self.game_screen, self.SELECTED_BOX_COLOR,
 		(self.minor_box_x_interval * self.curr_selected_col, self.minor_box_y_interval * self.curr_selected_row, \
 		self.minor_box_x_interval, self.minor_box_y_interval), self.MAJOR_LINE_WIDTH)
 
-	def _render_numbers(self, render_screen) -> None:
+	def _render_numbers(self) -> None:
 		"""
 		Draw the numbers and place them inside the box.
 		"""
@@ -146,16 +146,16 @@ class SudokuGUI:
 					# Center the text
 					text_rect = text_surface.get_rect(center=(px, py))
 
-					render_screen.blit(text_surface, text_rect)
+					self.game_screen.blit(text_surface, text_rect)
 
-	def _render_buttons(self, render_screen) -> None:
+	def _render_buttons(self) -> None:
 		"""
 		Draw the three button rectangles and place the
 		button text inside the rectangles.
 		"""
 	
 		# Pause Button
-		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, 
 		(self.check_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 		
@@ -163,10 +163,10 @@ class SudokuGUI:
 		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("CHECK", True, self.TEXT_COLOR)
-		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+		self.game_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Clear Button
-		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, 
 		(self.undo_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 
@@ -174,10 +174,10 @@ class SudokuGUI:
 		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("UNDO", True, self.TEXT_COLOR)
-		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+		self.game_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Main Menu Button
-		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
+		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, 
 		(self.main_menu_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 
@@ -185,7 +185,7 @@ class SudokuGUI:
 		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
 		text_surface = self.BUTTON_FONT.render("MAIN MENU", True, self.TEXT_COLOR)
-		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
+		self.game_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 	def _update_current_selected_box_pos(self, user_input, is_mouse) -> None:
 		"""
@@ -287,7 +287,7 @@ class SudokuGUI:
 			elif self.undo_x_pos <= mx <= self.undo_x_pos + (self.button_width - 2*self.button_padding):
 				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
 					# Clear Button pressed
-					self._on_clear_click()
+					self._on_undo_click()
 
 			# Check if mouse is in Main Menu Button Rectangle
 			elif self.main_menu_x_pos <= mx <= self.main_menu_x_pos + (self.button_width - 2*self.button_padding):
@@ -297,21 +297,21 @@ class SudokuGUI:
 
 			return (mx, my)
 
-	def _on_check_click(self):
+	def _on_check_click(self) -> None:
 		"""
-		Will be implemented by Greg and Aditya
+		Check the board's state
 		"""
-		# TODO Implement this method
-		print("CHECK BUTTON PRESSED")
+		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, (20, 20, self.dimensions - 20, self.dimensions - 20))
 
-	def _on_undo_click(self):
+	def _on_undo_click(self) -> None:
 		"""
-		Will be implemented by Greg and Aditya
+		Undo the last move
 		"""
-		# TODO Implement this method
-		print("UNDO BUTTON PRESSED")
+		if (self.move_history):
+			pass
 
-	def _on_main_menu_click(self):
+
+	def _on_main_menu_click(self) -> None:
 		"""
 		Will be implemented by Greg and Aditya
 		"""
@@ -324,14 +324,14 @@ class SudokuGUI:
 		"""
 
 		# Initialize PyGame Screen      
-		game_screen = pg.display.set_mode((self.dimensions, self.dimensions + self.button_height))    
+		self.game_screen = pg.display.set_mode((self.dimensions, self.dimensions + self.button_height))    
 		pg.display.set_caption('PyDoku Inc.')
 
-		game_over = False
+		self.game_over = False
 
-		self._render_sudoku_board(game_screen)		
+		self._render_sudoku_board()		
 
-		while not game_over:
+		while not self.game_over:
 
 			# Poll user input
 			event = pg.event.poll()
@@ -361,7 +361,7 @@ class SudokuGUI:
 			
 			# If the state of the board has changed
 			if board_changed:
-				self._render_sudoku_board(game_screen)
+				self._render_sudoku_board()
 	
 			pg.display.update()
 
