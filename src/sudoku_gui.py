@@ -317,7 +317,7 @@ class SudokuGUI:
 
 		if (self.board.check_win_condition()):
 			text = "Puzzle Solved!"
-			this.board = SudokuBoard()
+			self.board = SudokuBoard()
 		else:
 			text = "Puzzle Not Solved."
 
@@ -371,6 +371,7 @@ class SudokuGUI:
 			# If user inputs a number other than 0
 			if placed_num != -1:
 				self.board.set_element(self.curr_selected_row, self.curr_selected_col, placed_num)
+				self.mo
 				board_changed = True
 
 			# If user moves the selected box in a direction other than (0, 0)

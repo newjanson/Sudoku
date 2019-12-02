@@ -10,6 +10,9 @@ class SudokuBoard:
         self.original_board = []
         self.DIMENSION = 9
 
+        # Debug test file
+        # self.filename = "dataset/test.txt"
+
         f = open(self.filename, "r")
 
         # Collect each line and split the values into elements of an array
