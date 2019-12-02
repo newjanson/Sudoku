@@ -1,11 +1,25 @@
 
 class SudokuBoard:
     def __init__(self, filename):
-        f = open(filename, "r")
+        self.filename = filename
+        self.board = [[]]
+        self.DIMENSION = 9
+
+        f = open(self.filename, "r")
+        # Collect each line and split the values into elements of an array
         self.board = [line.split() for line in f.readlines()]
-        self.board = [list(map(int, i)) for i in self.board]
-        self.board.pop()
+
+        # Convert the elements in the board from strings to integers
+        for i in range(self.DIMENSION):
+            for j in range(self.DIMENSION):
+                self.board[i][j] = int(self.board[i][j])
+
+        self.board = self.board[:9]
         f.close()
 
-    def check_win_condition(board):
-        return not any(0 in row for row in board)
+    def check_win_condition(self):
+        return all((0 not in row) and (sum(row) == 45) for row in self.board)
+
+
+
+
