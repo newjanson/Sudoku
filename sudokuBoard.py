@@ -20,6 +20,17 @@ class SudokuBoard:
     def check_win_condition(self):
         return all((0 not in row) and (sum(row) == 45) for row in self.board)
 
+    def get_board_copy(self):
+        return self.board[:]
+
+    def get_element(self, i, j):
+        return self.board[i][j]
+
+    def set_element(self, i, j, elem):
+        self.board[i][j] = elem
+
+
+
 
 
 
