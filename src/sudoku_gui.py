@@ -31,6 +31,8 @@ class SudokuGUI:
 		self.SELECTED_BOX_COLOR = (70, 70, 255)
 		self.BUTTON_COLOR = (30, 30, 80)
 		self.TEXT_COLOR = (250, 250, 250)
+		self.NUMBER_ORIGINAL_COLOR = (255, 244, 176)
+		self.NUMBER_PLACED_COLOR = (255, 255, 255)
 
 		# Line Widths
 		self.MAJOR_LINE_WIDTH = 6
@@ -135,10 +137,16 @@ class SudokuGUI:
 		for row in range(self.board.DIMENSION):
 			for col in range(self.board.DIMENSION):
 
-				val = self.board.get_element(row, col)
+				val, is_original = self.board.get_element(row, col)
+				
 				if val:
 					value_string = str(val)
-					text_surface = self.NUMBER_FONT.render(value_string, True, self.TEXT_COLOR)
+
+					if (is_original)
+						text_surface = self.NUMBER_FONT.render(value_string, True, self.NUMBER_ORIGINAL_COLOR)
+					else:
+						text_surface = self.NUMBER_FONT.render(value_string, True, self.NUMBER_PLACED_COLOR)
+
 					
 					# Text position
 					px = (self.minor_box_x_interval * col) + (self.minor_box_x_interval / 2)
