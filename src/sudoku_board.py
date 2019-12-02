@@ -34,4 +34,6 @@ class SudokuBoard:
         return self.board[i][j]
 
     def set_element(self, i, j, elem):
-        self.board[i][j] = elem
+
+        if (self.board[i][j] == 0 or elem == 0):
+            self.board[i][j] = elem
