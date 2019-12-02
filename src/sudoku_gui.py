@@ -245,9 +245,8 @@ class SudokuGUI:
 		elif keys[pg.K_RIGHT] or keys[pg.K_d]: # Right Direction
 			move_direction = [0, 1]
 
-		placed_num = 0
+		placed_num = -1
 		# The number input from user
-		# I can't think of a better way lmao
 		if keys[pg.K_1]:
 			placed_num = 1
 		elif keys[pg.K_2]:
@@ -266,6 +265,8 @@ class SudokuGUI:
 			placed_num = 8
 		elif keys[pg.K_9]:
 			placed_num = 9
+		elif keys[pg.K_0]:
+			placed_num = 0
 
 		# Check Mouse Input
 		mouse_pos = self._check_player_mouse()
@@ -368,7 +369,7 @@ class SudokuGUI:
 			board_changed = False
 
 			# If user inputs a number other than 0
-			if placed_num:
+			if placed_num != -1:
 				self.board.set_element(self.curr_selected_row, self.curr_selected_col, placed_num)
 				board_changed = True
 
