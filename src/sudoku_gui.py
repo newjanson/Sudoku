@@ -67,6 +67,10 @@ class SudokuGUI:
 		self.curr_selected_row = 0
 		self.curr_selected_col = 0
 
+		# The number placement history
+		self.move_history = []
+
+
 	def _render_sudoku_board(self, render_screen) -> None:
 		"""
 		Render the sudoku board on the screen by
