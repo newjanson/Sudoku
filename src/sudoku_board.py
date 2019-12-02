@@ -44,3 +44,9 @@ class SudokuBoard:
     def set_element(self, i, j, elem):
         if (self.original_board[i][j] == 0):
             self.board[i][j] = elem
+
+    def clear_board(self):
+        # Reset the board back to the original board
+        for i in range(self.DIMENSION):
+            for j in range(self.DIMENSION):
+                self.board[i][j] = self.original_board[i][j]

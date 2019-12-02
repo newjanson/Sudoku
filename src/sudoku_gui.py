@@ -332,7 +332,11 @@ class SudokuGUI:
 		Undo the last move
 		"""
 		if (self.move_history):
-			pass
+			last_move = self.move_history.pop()
+
+			self.board.clear_board()
+			print(last_move)
+			self.board.set_element(last_move[0], last_move[1], last_move[2])
 
 
 	def _on_main_menu_click(self) -> None:
@@ -371,7 +375,14 @@ class SudokuGUI:
 			# If user inputs a number other than 0
 			if placed_num != -1:
 				self.board.set_element(self.curr_selected_row, self.curr_selected_col, placed_num)
-				self.mo
+				move = (self.curr_selected_row, self.curr_selected_col, placed_num)
+				
+				# Check for repeating moves
+				if (not self.move_history):
+					self.move_history.append(move)
+				elif (self.move_history[-1] != move): 
+					self.move_history.append(move)
+
 				board_changed = True
 
 			# If user moves the selected box in a direction other than (0, 0)
