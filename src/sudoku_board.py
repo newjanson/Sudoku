@@ -1,7 +1,9 @@
+import random
+import string
 
 class SudokuBoard:
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self):
+        self.filename = self._get_random_filename()
         self.board = [[]]
         self.DIMENSION = 9
 
@@ -16,6 +18,11 @@ class SudokuBoard:
 
         self.board = self.board[:9]
         f.close()
+
+    def _get_random_filename(self):
+        num_code = str(random.randint(1, 16).zfill(2))
+        letter_code = random.choice(string.ascii_letters[0:2])
+        return "dataset/s" + num_code + letter_code + ".txt
 
     def check_win_condition(self):
         return all((0 not in row) and (sum(row) == 45) for row in self.board)
