@@ -335,8 +335,10 @@ class SudokuGUI:
 			last_move = self.move_history.pop()
 
 			self.board.clear_board()
-			print(last_move)
-			self.board.set_element(last_move[0], last_move[1], last_move[2])
+
+			for move in self.move_history:
+				row, col, val = move
+				self.board.set_element(row, col, val)
 
 
 	def _on_main_menu_click(self) -> None:
