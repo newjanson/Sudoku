@@ -36,7 +36,7 @@ class SudokuBoard:
         return all((0 not in row) and (sum(row) == 45) for row in self.board)
 
     def get_element(self, i, j):
-        return (self.board[i][j], self.original_board[i][j] == 0)
+        return (self.board[i][j], self.original_board[i][j] != 0)
 
     def set_element(self, i, j, elem):
 

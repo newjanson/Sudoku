@@ -142,7 +142,7 @@ class SudokuGUI:
 				if val:
 					value_string = str(val)
 
-					if (is_original)
+					if (is_original):
 						text_surface = self.NUMBER_FONT.render(value_string, True, self.NUMBER_ORIGINAL_COLOR)
 					else:
 						text_surface = self.NUMBER_FONT.render(value_string, True, self.NUMBER_PLACED_COLOR)
