@@ -2,7 +2,7 @@
 import pygame as pg
 import time as t
 
-import random as r # Just used to remove numbers from board
+from sudoku_board import SudokuBoard
 
 class SudokuGUI:
 	"""
@@ -48,8 +48,8 @@ class SudokuGUI:
 		self.button_height = 70
 		self.button_padding = 10
 		self.button_y_pos = self.dimensions + self.button_padding
-		self.pause_x_pos = self.button_padding
-		self.clear_x_pos = self.button_width + self.button_padding
+		self.check_x_pos = self.button_padding
+		self.undo_x_pos = self.button_width + self.button_padding
 		self.main_menu_x_pos = 2*self.button_width + self.button_padding
 		
 		# The interval of major box in each direction
@@ -60,18 +60,8 @@ class SudokuGUI:
 		self.minor_box_x_interval = self.dimensions / 9
 		self.minor_box_y_interval = self.dimensions / 9
 
-		# Uncomment when Yaman is done with Sudoku
-		# self.sudoku = Sudoku(<params>)
-
-		# Using temporary board for numbers
-		# Below code just generates a random board (not Sudoku based board)
-		# Delete this once Yaman's class is integrated
-		self.board = [[i for i in range(1, 10)] for j in range(1, 10)]
-		for i in range(len(self.board)):
-			for j in range(len(self.board[i])):
-				if r.random() <= 0.3: # 30% chance of removing
-					self.board[i][j] = 0
-
+		# Create the sudoku board model
+		self.board = SudokuBoard()
 
 		# Represents the current selected box
 		self.curr_selected_row = 0
@@ -137,10 +127,10 @@ class SudokuGUI:
 		Draw the numbers and place them inside the box.
 		"""
 
-		for row in range(len(self.board)):
-			for col in range(len(self.board[row])):
+		for row in range(self.board.DIMENSION):
+			for col in range(self.board.DIMENSION):
 
-				val = self.board[row][col]
+				val = self.board.get_element(row, col)
 				if val:
 					value_string = str(val)
 					text_surface = self.NUMBER_FONT.render(value_string, True, self.TEXT_COLOR)
@@ -162,24 +152,24 @@ class SudokuGUI:
 	
 		# Pause Button
 		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
-		(self.pause_x_pos, self.button_y_pos, \
+		(self.check_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 		
-		px = self.pause_x_pos + ((self.button_width - 2*self.button_padding) // 2)
+		px = self.check_x_pos + ((self.button_width - 2*self.button_padding) // 2)
 		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
-		text_surface = self.BUTTON_FONT.render("PAUSE", True, self.TEXT_COLOR)
+		text_surface = self.BUTTON_FONT.render("CHECK", True, self.TEXT_COLOR)
 		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Clear Button
 		pg.draw.rect(render_screen, self.BUTTON_COLOR, 
-		(self.clear_x_pos, self.button_y_pos, \
+		(self.undo_x_pos, self.button_y_pos, \
 		self.button_width - 2*self.button_padding, self.button_height - 2*self.button_padding))
 
-		px = self.clear_x_pos + ((self.button_width - 2*self.button_padding) // 2)
+		px = self.undo_x_pos + ((self.button_width - 2*self.button_padding) // 2)
 		py = self.button_y_pos + ((self.button_height - 2*self.button_padding) // 2)
 
-		text_surface = self.BUTTON_FONT.render("CLEAR", True, self.TEXT_COLOR)
+		text_surface = self.BUTTON_FONT.render("UNDO", True, self.TEXT_COLOR)
 		render_screen.blit(text_surface, text_surface.get_rect(center=(px, py)))
 
 		# Main Menu Button
@@ -284,13 +274,13 @@ class SudokuGUI:
 			mx, my = pg.mouse.get_pos()
 
 			# Check if mouse is in Pause Button Rectangle
-			if self.pause_x_pos <= mx <= self.pause_x_pos + (self.button_width - 2*self.button_padding):
+			if self.check_x_pos <= mx <= self.check_x_pos + (self.button_width - 2*self.button_padding):
 				if self.button_y_pos <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
 					# Pause Button pressed
-					self._on_pause_click()
+					self._on_check_click()
 
 			# Check if mouse is in Clear Button Rectangle
-			elif self.clear_x_pos <= mx <= self.clear_x_pos + (self.button_width - 2*self.button_padding):
+			elif self.undo_x_pos <= mx <= self.undo_x_pos + (self.button_width - 2*self.button_padding):
 				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
 					# Clear Button pressed
 					self._on_clear_click()
@@ -303,19 +293,19 @@ class SudokuGUI:
 
 			return (mx, my)
 
-	def _on_pause_click(self):
+	def _on_check_click(self):
 		"""
 		Will be implemented by Greg and Aditya
 		"""
 		# TODO Implement this method
-		print("PAUSE BUTTON PRESSED")
+		print("CHECK BUTTON PRESSED")
 
-	def _on_clear_click(self):
+	def _on_undo_click(self):
 		"""
 		Will be implemented by Greg and Aditya
 		"""
 		# TODO Implement this method
-		print("CLEAR BUTTON PRESSED")
+		print("UNDO BUTTON PRESSED")
 
 	def _on_main_menu_click(self):
 		"""
@@ -352,7 +342,7 @@ class SudokuGUI:
 
 			# If user inputs a number other than 0
 			if placed_num:
-				self.board[self.curr_selected_row][self.curr_selected_col] = placed_num
+				self.board.set_element(self.curr_selected_row, self.curr_selected_col, placed_num)
 				board_changed = True
 
 			# If user moves the selected box in a direction other than (0, 0)
