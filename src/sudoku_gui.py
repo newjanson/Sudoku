@@ -61,7 +61,7 @@ class SudokuGUI:
 		self.minor_box_y_interval = self.dimensions / 9
 
 		# Create the sudoku board model
-		self.board = SudokuBoard()
+		self.board = SudokuBoard("datasets/s01a.txt")
 
 		# Represents the current selected box
 		self.curr_selected_row = 0
