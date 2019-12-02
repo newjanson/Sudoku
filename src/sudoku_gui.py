@@ -39,6 +39,7 @@ class SudokuGUI:
 		# Fonts
 		self.NUMBER_FONT = pg.font.SysFont('Consolas', 50)
 		self.BUTTON_FONT = pg.font.SysFont('Consolas', 30)
+		self.STATUS_FONT = pg.font.SysFont('Consolas', 65)
 
 		# The dimensions of the window (window is dimensions x dimensions)
 		self.dimensions = dimensions
@@ -301,7 +302,21 @@ class SudokuGUI:
 		"""
 		Check the board's state
 		"""
-		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, (20, 20, self.dimensions - 20, self.dimensions - 20))
+		pg.draw.rect(self.game_screen, self.BUTTON_COLOR, (20, 20, self.dimensions - 40, self.dimensions - 40))
+
+		text = ''
+
+		if (self.board.check_win_condition()):
+			text = "Puzzle Solved!"
+			this.board = SudokuBoard()
+		else:
+			text = "Puzzle Not Solved."
+
+		text_surface = self.STATUS_FONT.render(text, True, self.TEXT_COLOR)		
+		self.game_screen.blit(text_surface, text_surface.get_rect(center=(self.dimensions//2, self.dimensions//2)))
+		pg.display.update()
+
+		t.sleep(3) # Pause for 3 seconds
 
 	def _on_undo_click(self) -> None:
 		"""
