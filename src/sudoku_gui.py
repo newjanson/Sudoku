@@ -277,21 +277,21 @@ class SudokuGUI:
 			# Mouse xy position
 			mx, my = pg.mouse.get_pos()
 
-			# Check if mouse is in Check Button Rectangle
-			if self.check_x_pos <= mx <= self.check_x_pos + (self.button_width - 2*self.button_padding):
-				if self.button_y_pos <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
+			# Check if mouse is in the y-region of the buttons
+			if self.button_y_pos <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
+
+				# Check if mouse is in Check Button Rectangle
+				if self.check_x_pos <= mx <= self.check_x_pos + (self.button_width - 2*self.button_padding):
 					# Check Button pressed
 					self._on_check_click()
 
-			# Check if mouse is in Undo Button Rectangle
-			elif self.undo_x_pos <= mx <= self.undo_x_pos + (self.button_width - 2*self.button_padding):
-				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
+				# Check if mouse is in Undo Button Rectangle
+				elif self.undo_x_pos <= mx <= self.undo_x_pos + (self.button_width - 2*self.button_padding):
 					# Undo Button pressed
 					self._on_undo_click()
 
-			# Check if mouse is in Main Menu Button Rectangle
-			elif self.main_menu_x_pos <= mx <= self.main_menu_x_pos + (self.button_width - 2*self.button_padding):
-				if self.button_y_pos  <= my <= self.button_y_pos  + (self.button_height - 2*self.button_padding):
+				# Check if mouse is in Main Menu Button Rectangle
+				elif self.main_menu_x_pos <= mx <= self.main_menu_x_pos + (self.button_width - 2*self.button_padding):
 					# Main Menu Button pressed
 					self._on_main_menu_click()
 
