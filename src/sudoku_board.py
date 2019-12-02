@@ -11,7 +11,7 @@ class SudokuBoard:
         self.DIMENSION = 9
 
         # Debug test file
-        # self.filename = "dataset/test.txt"
+        # self.filename = "dataset/debug/test.txt"
 
         f = open(self.filename, "r")
 
