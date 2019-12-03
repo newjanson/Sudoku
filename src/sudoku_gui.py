@@ -329,11 +329,12 @@ class SudokuGUI:
 
 	def _on_undo_click(self) -> None:
 		"""
-		Undo the last move
+		Undo the last move by clearing the board and playing 
+		all moves up until the last move (not inclusive).
 		"""
+		
 		if (self.move_history):
-			last_move = self.move_history.pop()
-
+			self.move_history.pop()
 			self.board.clear_board()
 
 			for move in self.move_history:
