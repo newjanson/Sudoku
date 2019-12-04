@@ -62,7 +62,7 @@ TODO: Sharven
 
 #### `SudokuBoard` ####
 The `SudokuBoard` class contains all the information about the current state of the
-SudokuBoard. When a new SudokuBoard is initialized, it chooses a random .txt file
+Sudoku puzzle. When a new `SudokuBoard` is initialized, it chooses a random Sudoku puzzle text file
 from the dataset folder and converts that into a 2D list. This list contains all the
 information about each square in the game. The `SudokuGUI` class can then access this information
 and present it to the user through the GUI.
