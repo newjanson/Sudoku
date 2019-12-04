@@ -1,13 +1,25 @@
+# Pydoku Inc. #
+
+A GUI implementation of the age old game of Sudoku.
+
+# Table of Contents #
+
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Documentation](#documentation)
+* [Licensing](#licensing)
+* [Addendums](#addendums)
+
 # Dependencies: #
 
-- Python 3.6.4 or later
-- PyGame
+- Python 3.6.1 or above
+- PyGame 1.9.4 or above
 
 # Installation: #
 
-1. Install Python. You can get started with this link: https://www.python.org/
+1. Install Python from [here](https://www.python.org/). You can skip this step if you have Python 3.6.1 or above already installed.
 
-2. Install PyGame. You can get started with this link: https://www.pygame.org/wiki/GettingStarted
+2. Install PyGame using this [guide](https://www.pygame.org/wiki/GettingStarted). 
 
 3. Click on the Green Button that says "Clone or Download"
 
@@ -19,8 +31,9 @@
 
 When you run the game, you will be greeted with this window:
 
-![Window Screenshot](readme_resources/screenshot.png)
-Format: ![Alt Text](url)
+<p align="center">
+  <img src="readme_resources/screenshot.png">
+</p>
 
 # Documentation: #
 
