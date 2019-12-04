@@ -22,7 +22,7 @@ A GUI implementation of the age old game of Sudoku.
 
 2. Install PyGame using this [guide](https://www.pygame.org/wiki/GettingStarted). You can skip this step if you already have PyGame 1.9.4 or above already installed.
 
-3. Click on the ![picture alt](readme_resources/clone_or_download_button.png) button
+3. Click on the ![picture alt](readme_resources/clone_button.png) button
 
 4. Cick on "Download ZIP"
 
