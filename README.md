@@ -70,7 +70,10 @@ and present it to the user through the GUI.
 To choose a specific Sudoku puzzle text file, set `self.filename` to the path of the file. If you are using your own file, please make sure the file follows the proper formatting (you can modify `dataset/debug/blank.txt` to create a Sudoku puzzle that follows the file format).
 
 #### `Menu` ####
-TODO: Aditya
+The Main Menu class contains all the components of the main menu, which contains the two buttons "Play" and "Quit".
+The class consists of the the rendering of the actual fonts and rectangle buttons, the commands to handle the exit application case, and so on.
+To extend on this class, simply update the on_render function and declare new variables in the initializer function. This would make the design of the code a lot more simple. This class can be integrated with the actual game itself if need be! The button functionality is currently NOT implemented and is left for other users to extend on if they choose to do so.
+
 
 #### `SettingsMenu` ####
 TODO: Greg
