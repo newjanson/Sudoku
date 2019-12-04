@@ -61,11 +61,13 @@ When you run the game, you will be greeted with this window (Note that you may n
 TODO: Sharven
 
 #### `SudokuBoard` ####
-The SudokuBoard class contains all the information about the current state of the
+The `SudokuBoard` class contains all the information about the current state of the
 SudokuBoard. When a new SudokuBoard is initialized, it chooses a random .txt file
-from the dataset folder and converts that into a 2D list.  This list contains all the
-information about each square in the game. The GUI can then access this information
-and present it to the user.
+from the dataset folder and converts that into a 2D list. This list contains all the
+information about each square in the game. The `SudokuGUI` class can then access this information
+and present it to the user through the GUI.
+
+To choose a specific Sudoku puzzle text file, set `self.filename` to the path of the file. If you are using your own file, please make sure the file follows the proper formatting (you can modify `dataset/debug/blank.txt` to create a Sudoku puzzle that follows the file format).
 
 #### `Menu` ####
 TODO: Aditya
