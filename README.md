@@ -70,7 +70,7 @@ To modify the controls or the user keyboard input handling, check out the `_get_
 
 To modify what the buttons do, check out the `_on_check_click`, `_on_undo_click`, and `_on_main_menu_click` methods. Note that if you want to add more buttons, it is challenging to do as you would need to modify the positioning calculations in the `__init__` method.
 
-To extend on this class, one could implement the functionality of the "MAIN MENU" button so that it switches screens to use the `Menu` class. One could also implement a clock that shows the time elapsed since the start of the game, or could show the time remaining for the user to solve the puzzle. Additionally, one could implement the feature where the user can place potential numbers for the square at the corner of the box as would people do when solving a Sudoku puzzle by hand on paper. This is just the base and the possibilities are endless from here!
+To extend on this class, one could implement the functionality of the "MAIN MENU" button so that it switches screens to use the `Menu` class. One could also implement a clock that shows the time elapsed since the start of the game, or could show the time remaining for the user to solve the puzzle. Additionally, one could implement the feature where the user can place potential numbers for the square at the corner of the box as would people do when solving a Sudoku puzzle by hand on paper. These are just some ideas, but the possibilities are endless from here!
 
 #### `SudokuBoard` ####
 The `SudokuBoard` class contains all the information about the current state of the
