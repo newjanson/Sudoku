@@ -19,7 +19,7 @@ A GUI implementation of the age old game of Sudoku.
 
 1. Install Python from [here](https://www.python.org/). You can skip this step if you have Python 3.6.1 or above already installed.
 
-2. Install PyGame using this [guide](https://www.pygame.org/wiki/GettingStarted). 
+2. Install PyGame using this [guide](https://www.pygame.org/wiki/GettingStarted). You can skip this step if you already have PyGame 1.9.4 or above already installed.
 
 3. Click on the Green Button that says "Clone or Download"
 
@@ -29,7 +29,7 @@ A GUI implementation of the age old game of Sudoku.
 
 6. Navigate to the src folder, then run sudoku_gui.py
 
-When you run the game, you will be greeted with this window:
+When you run the game, you will be greeted with this window (Note that you may not get the same Sudoku puzzle):
 
 <p align="center">
   <img src="readme_resources/screenshot.png">
