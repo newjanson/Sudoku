@@ -87,6 +87,7 @@ For this project, I worked on the frontend/visual components of the code (specif
 
 ### Sharven Prasad Dhanasekar: ###
 
+For this project, I programmed the GUI application. More specifically, I coded the 'SudokuGUI' class which handles the rendering of the Sudoku board, the user input, and the in game buttons. Moreover, I also integrated the backend components, such as the 'SudokuBoard' class, with the GUI application so that the GUI properly updates and recieves information from the backend. My contributions to the README is that I added the formatting to it (e.g. the headings, table of contents, links, etc.). Apart from the formatting, I added the Licensing information to the README, the documentation for the 'SudokuGUI' class, and the instructions on how to play the game using the controls.
 
 ### Greg Zetko: ###
 
