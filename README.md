@@ -7,6 +7,7 @@ A GUI implementation of the age old game of Sudoku.
 * [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Documentation](#documentation)
+* [Extending The Game](#extending-the-game)
 * [Licensing](#licensing)
 * [Addendums](#addendums)
 
@@ -35,7 +36,18 @@ When you run the game, you will be greeted with this window (Note that you may n
   <img src="readme_resources/screenshot.png">
 </p>
 
+### How To Play ###
+
+* Use Arrow Keys/WASD to move the selected box around the board, or use the mouse to select a box.
+* Use the Number Keys to place a number in the selected box (pressing "0" will clear the entry in that box)
+* Click the "CHECK" button to check if the puzzle has been solved.
+* Click the "UNDO" button if you wish to undo a move.
+
 # Documentation: #
+
+...
+
+# Extending The Game: #
 
 ...
 
