@@ -71,7 +71,7 @@ TODO: Greg
 
 # Extending The Game: #
 
-...
+TODO: Greg
 
 # Licensing: #
 
@@ -113,3 +113,4 @@ For this project, I programmed the GUI application. More specifically, I coded t
 
 ### Greg Zetko: ###
 
+TODO: Greg
