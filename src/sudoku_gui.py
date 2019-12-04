@@ -11,7 +11,7 @@ class SudokuGUI:
 	Runs the game based on user input.
 	"""
 
-	def __init__(self, dimensions) -> None:
+	def __init__(self) -> None:
 		"""
 		params:
 		Initialize the sudoku game.
@@ -44,7 +44,7 @@ class SudokuGUI:
 		self.STATUS_FONT = pg.font.SysFont('Consolas', 65)
 
 		# The dimensions of the window (window is dimensions x dimensions)
-		self.dimensions = dimensions
+		self.dimensions = 700
 
 		# The dimensions of the buttons
 		self.button_width = self.dimensions / 3
@@ -410,5 +410,5 @@ class SudokuGUI:
 
 if __name__ == "__main__":
 	
-	game = SudokuGUI(700)
+	game = SudokuGUI()
 	game.run_game()

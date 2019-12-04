@@ -58,7 +58,19 @@ When you run the game, you will be greeted with this window (Note that you may n
 ### Code Documentation: ### 
 
 #### `SudokuGUI` ####
-TODO: Sharven
+The `SudokuGUI` class contains the code for running the GUI application that renders the Sudoku board on the screen and processes the user input. 
+
+To use this class, you have to instantiate it and call the `run_game` method to run the GUI application.
+
+All of the GUI parameters such as the colors, line widths, font sizes, font faces, screen dimensions, and the button dimensions can be modified in the `__init__` method. 
+
+There is an additional parameter called `BUFFER_DELAY` that controls the delay of the game loop in the `run_game` method. This parameter is used to ensure that the game loop does not run too quickly, which would result in the user input being processed to many times in short period of time. Modify this parameter carefully as if it is too high, the loop will run too slowly and the game will feel laggy. If it is too low, then the loop will run too quickly.
+
+To modify the controls or the user keyboard input handling, check out the `_get_player_input` method. Please modify this with care as incorrect usage can cause the game to crash.
+
+To modify what the buttons do, check out the `_on_check_click`, `_on_undo_click`, and `_on_main_menu_click` methods. Note that if you want to add more buttons, it is challenging to do as you would need to modify the positioning calculations in the `__init__` method.
+
+To extend on this class, one could implement the functionality of the "MAIN MENU" button so that it switches screens to use the `Menu` class. One could also implement a clock that shows the time elapsed since the start of the game, or could show the time remaining for the user to solve the puzzle. Additionally, one could implement the feature where the user can place potential numbers for the square at the corner of the box as would people do when solving a Sudoku puzzle by hand on paper. This is just the base and the possibilities are endless from here!
 
 #### `SudokuBoard` ####
 The `SudokuBoard` class contains all the information about the current state of the
@@ -69,9 +81,13 @@ and present it to the user through the GUI.
 
 To choose a specific Sudoku puzzle text file, set `self.filename` to the path of the file. If you are using your own file, please make sure the file follows the proper formatting (you can modify `dataset/debug/blank.txt` to create a Sudoku puzzle that follows the file format).
 
+To extend on this class, you can implement [Depth First Search](https://en.wikipedia.org/wiki/Depth-first_search) to generate a unique solved Sudoku board that can be turned into a puzzle by removing some numbers. This would make the gameplay experience interesting because each puzzle is generated randomly and does not come from a finite set of puzzles.
+
 #### `Menu` ####
 The `Menu` class contains all the components of the main menu, which contains the two buttons "Play" and "Quit".
+
 The class consists of the the rendering of the actual fonts and rectangle buttons, the commands to handle the exit application case, and so on.
+
 To extend on this class, simply update the on_render function and declare new variables in the initializer function. This would make the design of the code a lot more simple. This class can be integrated with the actual game itself if need be! The button functionality is currently NOT implemented and is left for other users to extend on if they choose to do so.
 
 
@@ -118,7 +134,7 @@ For this project, I worked on the frontend/visual components of the code (specif
 
 ### Sharven Prasad Dhanasekar: ###
 
-For this project, I programmed the GUI application. More specifically, I coded the `SudokuGUI` class which handles the rendering of the Sudoku board, the user input, and the in game buttons. Moreover, I also integrated the backend components, such as the `SudokuBoard` class, with the GUI application so that the GUI properly updates and recieves information from the backend. My contributions to the README is that I added the formatting to it (e.g. the headings, table of contents, links, etc.). Apart from the formatting, I added the Licensing information to the README, the directory structure, the documentation for the `SudokuGUI` class, and the instructions on how to play the game using the controls.
+For this project, I programmed the GUI application. More specifically, I coded the `SudokuGUI` class which handles the rendering of the Sudoku board, the user input, and the in game buttons. Moreover, I also integrated the backend components, such as the `SudokuBoard` class, with the GUI application so that the GUI properly updates and recieves information from the backend. My contributions to the README is that I added the formatting to it such as the headings, the table of contents, links, etc. Apart from the formatting, I added the Licensing information, the directory structure, the documentation for the `SudokuGUI` class, and the instructions on how to play the game using the controls.
 
 ### Greg Zetko: ###
 
