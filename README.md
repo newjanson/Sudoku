@@ -1,4 +1,4 @@
-# Pydoku Inc. #
+# PyDoku Inc. #
 
 A GUI implementation of the age old game of Sudoku.
 
