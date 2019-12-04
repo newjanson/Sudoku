@@ -61,7 +61,11 @@ When you run the game, you will be greeted with this window (Note that you may n
 TODO: Sharven
 
 #### `SudokuBoard` ####
-TODO: Yaman
+The SudokuBoard class contains all the information about the current state of the
+SudokuBoard. When a new SudokuBoard is initialized, it chooses a random .txt file
+from the dataset folder and converts that into a 2D list.  This list contains all the
+information about each square in the game. The GUI can then access this information
+and present it to the user.
 
 #### `Menu` ####
 TODO: Aditya
