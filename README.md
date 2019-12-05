@@ -139,4 +139,4 @@ For this project, I programmed the GUI application. More specifically, I coded t
 
 ### Greg Zetko: ###
 
-TODO: Greg
+For this project, I worked on the settings menu and making sure that we could pull the neccessary information from the settings menu to toggle different features of the game. Unfortunately, due to time restrictions, we decided not to integrate either the main menu or the settings menu with the game, and as the project progressed both the error highlighting and difficulty selection features became out-of-scope for the project. I also helped with scheduling and finding locations for our team meetings.
