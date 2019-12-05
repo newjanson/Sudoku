@@ -28,7 +28,7 @@ A GUI implementation of the age old game of Sudoku.
 
 5. Extract ZIP folder to some directory in the computer
 
-6. Navigate to the src folder, then run sudoku_gui.py
+6. Navigate to the `src` folder, then run sudoku_gui.py
 
 When you run the game, you will be greeted with this window (Note that you may not get the same Sudoku puzzle):
 
@@ -94,9 +94,6 @@ To extend on this class, simply update the on_render function and declare new va
 #### `SettingsMenu` ####
 TODO: Greg
 
-# Extending The Game: #
-
-TODO: Greg
 
 # Licensing: #
 
@@ -134,7 +131,7 @@ For this project, I worked on the frontend/visual components of the code (specif
 
 ### Sharven Prasad Dhanasekar: ###
 
-For this project, I programmed the GUI application. More specifically, I coded the `SudokuGUI` class which handles the rendering of the Sudoku board, the user input, and the in game buttons. Moreover, I also integrated the backend components, such as the `SudokuBoard` class, with the GUI application so that the GUI properly updates and recieves information from the backend. My contributions to the README is that I added the formatting to it such as the headings, the table of contents, the links, the monospace markdown, etc. Apart from the formatting, I added the Licensing information, the directory structure, the documentation for the `SudokuGUI` class, and the instructions on how to play the game using the controls.
+For this project, I programmed the GUI application. More specifically, I coded the `SudokuGUI` class which handles the rendering of the Sudoku board, the user input, and the in game buttons. Moreover, I also integrated the backend components, such as the `SudokuBoard` class, with the GUI application so that the GUI properly updates and recieves information from the backend. My contributions to the README is that I added the formatting to it such as the headings, the table of contents, the links, the monospace markdown, etc. Apart from the formatting, I added the Licensing information, the directory structure, the documentation for the `SudokuGUI` class, and the instructions on how to play the game using the controls. Further, I added some ideas that could be implemented to extend the `SudokuGUI` class.
 
 ### Greg Zetko: ###
 
