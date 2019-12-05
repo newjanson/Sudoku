@@ -92,7 +92,11 @@ To extend on this class, simply update the on_render function and declare new va
 
 
 #### `SettingsMenu` ####
-TODO: Greg
+The `Settings` menu class inherits from `Menu`, so it contains all methods and attributes as `Menu` in addition to the parameters "difficulty" and "isHighlight".
+
+The class renders the clickable labels that allow the user to adjust the settings as they see fit.
+
+To extend this class, you could add your own settings by adding a label to the scene inside the `on_render()` method and implementing its functionalities inside the `on_event()` method. This menu is currently not integrated with the actual game, because we decided to get rid of both difficulty selection and error highlighting for this deliverable.
 
 
 # Licensing: #
